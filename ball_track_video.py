@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import cv2
-shapes={}
+centroid={}
 
 def findRed(img):
     imgHSV=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
@@ -31,7 +31,7 @@ def getContours(img):
                  Xc = int(M['m10'] / M['m00'])
                  Yc = int(M['m01'] / M['m00'])
                  cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                 shapes.update({"Centroids": [Xc, Yc]})
+                 centroid.update({"Centroids": [Xc, Yc]})
 
 
 path="Videos/ballmotion.m4v"
@@ -41,7 +41,7 @@ while(cap.isOpened()):
     success,frame=cap.read()
     findRed(frame)
     imS = cv2.resize(frame, (960, 540))
-    print(shapes)
+    print(centroid)
     cv2.imshow('Ball motion',imS)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
