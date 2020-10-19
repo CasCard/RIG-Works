@@ -33,18 +33,13 @@ def getContours(img):
                  cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                  shapes.update({"Centroids": [Xc, Yc]})
 
-# myColors=[[0,0,0,0,255,255]]
-
-
 
 path="Videos/ballmotion.m4v"
 cap=cv2.VideoCapture(path)
 
 while(cap.isOpened()):
     success,frame=cap.read()
-    # getContours(frame)
     findRed(frame)
-    # re,newResult=cap.read()
     imS = cv2.resize(frame, (960, 540))
     print(shapes)
     cv2.imshow('Ball motion',imS)
@@ -53,20 +48,4 @@ while(cap.isOpened()):
 
 cap.release()
 cv2.destroyAllWindows()
-# frame_list=[69,138,207]
-# for frame_number in frame_list:
-#     cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number-1)
-# while(cap.isOpened()):
-#     success,frame=cap.read()
-    # getContours(frame, edges)
-    # findRed(frame)
-    # re,newResult=cap.read()
-# imS = cv2.resize(frame, (960, 540))
-# cv2.imshow('Ball motion',imS)
-    # if cv2.waitKey(1) & 0xFF == ord('q'):
-    #     break
-    # cap.release()
-# print(shapes)
-#
-# cap.release()
-# cv2.destroyAllWindows()
+
