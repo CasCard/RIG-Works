@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import cv2
-centroids={}
+shapes={}
 
 def findRed(img):
     imgHSV=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
@@ -26,10 +26,15 @@ def getContours(img):
             # print(objCor)
             x, y, w, h = cv2.boundingRect(approx)
             if w>100 and h > 100:
+                 # print(w,h)
+                 objectType = "Circle"
                  Xc = int(M['m10'] / M['m00'])
                  Yc = int(M['m01'] / M['m00'])
                  cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                 centroids.update({"Centroid": [Xc, Yc]})
+                 shapes.update({"Centroids": [Xc, Yc]})
+
+# myColors=[[0,0,0,0,255,255]]
+
 
 
 path="Videos/ballmotion.m4v"
@@ -37,13 +42,31 @@ cap=cv2.VideoCapture(path)
 
 while(cap.isOpened()):
     success,frame=cap.read()
-    getContours(frame, edges)
+    # getContours(frame)
     findRed(frame)
     # re,newResult=cap.read()
-	  imS = cv2.resize(frame, (960, 540))
+    imS = cv2.resize(frame, (960, 540))
+    print(shapes)
     cv2.imshow('Ball motion',imS)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    print(centroids)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
 cap.release()
 cv2.destroyAllWindows()
+# frame_list=[69,138,207]
+# for frame_number in frame_list:
+#     cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number-1)
+# while(cap.isOpened()):
+#     success,frame=cap.read()
+    # getContours(frame, edges)
+    # findRed(frame)
+    # re,newResult=cap.read()
+# imS = cv2.resize(frame, (960, 540))
+# cv2.imshow('Ball motion',imS)
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     break
+    # cap.release()
+# print(shapes)
+#
+# cap.release()
+# cv2.destroyAllWindows()
